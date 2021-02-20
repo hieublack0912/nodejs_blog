@@ -9,7 +9,6 @@ const route = require('./routes');
 
 app.use(express.static(path.join(__dirname, 'public')));
 
-
 app.use(express.urlencoded());
 app.use(express.json());
 
@@ -17,16 +16,18 @@ app.use(express.json());
 app.use(morgan('combined'));
 
 //template engine
-app.engine('hbs', handlebars({
-    extname: '.hbs'
-}));
+app.engine(
+  'hbs',
+  handlebars({
+    extname: '.hbs',
+  }),
+);
 app.set('view engine', 'hbs');
-app.set('views',
-    path.join(__dirname, 'resources\\views'));
+app.set('views', path.join(__dirname, 'resources\\views'));
 
 // Routes init
 route(app);
 
 app.listen(port, () => {
-    console.log(`Example app listening at http://localhost:${port}`);
-})
+  console.log(`Example app listening at http://localhost:${port}`);
+});
