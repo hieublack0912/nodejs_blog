@@ -22,10 +22,8 @@ class SiteController {
 
         const course = new Course(req.body);
         course.save()
-            .then(() => res.redirect('/'))
-            .catch(error => {
-
-            });
+            .then(() => res.redirect('/me/store/courses'))
+            .catch(next);
 
     }
 
@@ -42,7 +40,41 @@ class SiteController {
     update(req, res, next) {
         Course.updateOne({ _id: req.params.id }, req.body)
             .then(() => res.redirect('/me/store/courses'))
-            .catch(next)
+            .catch(next);
+    }
+
+    //[delete] /courses/:id
+    destroy(req, res, next) {
+        Course.delete({ _id: req.params.id })
+            .then(() => res.redirect('back'))
+            .catch(next);
+    }
+
+    //[delete] /courses/:id/force
+    forceDestroy(req, res, next) {
+        Course.deleteOne({ _id: req.params.id })
+            .then(() => res.redirect('back'))
+            .catch(next);
+    }
+
+    //[Patch] /courses/:id/resrote
+    restore(req, res, next) {
+        Course.restore({ _id: req.params.id })
+            .then(() => res.redirect('back'))
+            .catch(next);
+    }
+
+    //[POST] /courses/handle-form-actions
+    handleFormActions(req, res, next) {
+        switch (req.body.action) {
+            case 'delete':
+                Course.delete({ _id: { $in: req.body.courseIds } })
+                    .then(() => res.redirect('back'))
+                    .catch(next);
+                break;
+            default:
+                res.json({ message: 'Action is invalid!' });
+        }
     }
 }
 
