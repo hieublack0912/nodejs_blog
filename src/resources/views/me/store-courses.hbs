@@ -4,13 +4,6 @@
       <a href="/me/trash/courses">Thùng rác ({{deletedCount}})</a>
 
       <div class="mt-4 d-flex align-items-center">
-        <div class="form-check">
-          <input class="form-check-input" type="checkbox" value="" id="checkbox-all">
-          <label class="form-check-label" for="checkbox-all">
-            Chọn tất cả
-          </label>
-        </div>
-
         <select class="form-control form-control-sm checkbox-select-all-options" name="action" required>
           <option value="">-- Hành động --</option>
           <option value="delete">Xóa</option>
@@ -22,8 +15,12 @@
 
     <table class="table mt-4">
         <thead>
-            <tr>              
-              <th scope="col" colspan="2">#</th>
+            <tr>         
+              <th scope="col">
+                <input class="form-check-input" type="checkbox" value="" id="checkbox-all">
+                ALl
+              </th>     
+              <th scope="col">#</th>
               <th scope="col">
                 Tên khóa học
                 {{{sortable 'name' _sort}}}
